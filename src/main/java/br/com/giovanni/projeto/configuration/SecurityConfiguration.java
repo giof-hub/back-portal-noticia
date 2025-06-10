@@ -22,7 +22,7 @@ public class SecurityConfiguration {
     private UserAuthenticationFilter userAuthenticationFilter;
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
-            "/auth/login",
+            "/v1/auth/login",
     };
 
     // Endpoints que requerem autenticação para serem acessados
