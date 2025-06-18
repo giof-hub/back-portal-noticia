@@ -3,15 +3,18 @@ package br.com.giovanni.projeto.entity;
 
 import br.com.giovanni.projeto.models.CategoriaDTO;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "CATEGORIA")
 public class Categoria implements Serializable {
 
@@ -19,7 +22,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 50)
     private String descricao;
 
     @JoinColumn(name = "IDCATEGORIAPAI", referencedColumnName = "ID", insertable = false, updatable = false)
@@ -37,7 +40,6 @@ public class Categoria implements Serializable {
                 .builder()
                 .id(categoriaDTO.getId())
                 .descricao(categoriaDTO.getDescricao())
-                .idCategoriaPai(categoriaDTO.getIdCategoriaPai())
                 .build();
     }
 }
