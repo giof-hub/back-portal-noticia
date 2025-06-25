@@ -30,21 +30,21 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (checkIfEndpointIsNotPublic(request)) {
-            String token = recoveryToken(request);
-            if (token != null) {
-                String subject = jwtTokenService.getSubjectFromToken(token);
-                Usuario user = userRepository.findByLogin(subject).get();
-                UserDetailsDTO userDetails = new UserDetailsDTO(user);
-
-                Authentication authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else {
-                throw new RuntimeException("O token está ausente.");
-            }
-        }
+//        if (checkIfEndpointIsNotPublic(request)) {
+//            String token = recoveryToken(request);
+//            if (token != null) {
+//                String subject = jwtTokenService.getSubjectFromToken(token);
+//                Usuario user = userRepository.findByLogin(subject).get();
+//                UserDetailsDTO userDetails = new UserDetailsDTO(user);
+//
+//                Authentication authentication =
+//                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+//
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
+//            } else {
+//                throw new RuntimeException("O token está ausente.");
+//            }
+//        }
         filterChain.doFilter(request, response);
     }
 
