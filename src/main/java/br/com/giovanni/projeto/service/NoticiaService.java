@@ -8,6 +8,7 @@ import br.com.giovanni.projeto.models.NoticiaResponseDTO;
 import br.com.giovanni.projeto.repository.NoticiaDocumentoRepository;
 import br.com.giovanni.projeto.repository.NoticiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
@@ -27,13 +28,23 @@ public class NoticiaService {
     @Autowired
     private NoticiaRepository repository;
 
+    @Autowired
+    private Environment environment;
+
     public List<NoticiaResponseDTO> listAll() {
         List<Noticia> noticias = repository.findAll();
 
         List<NoticiaResponseDTO> list = new ArrayList<>();
 
+        String port = this.environment.getProperty("local.server.port");
+
         for (Noticia noticia : noticias) {
-            list.add(NoticiaResponseDTO.converter(noticia));
+
+            NoticiaResponseDTO response = NoticiaResponseDTO.converter(noticia);
+
+            response.setPath("http://localhost:"+port+"/v1/noticia/file/"+noticia.getNoticiaDocumento().getPath());
+
+            list.add(response);
         }
 
         return list;

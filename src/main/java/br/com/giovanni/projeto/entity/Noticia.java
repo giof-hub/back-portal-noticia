@@ -2,14 +2,18 @@ package br.com.giovanni.projeto.entity;
 
 import br.com.giovanni.projeto.models.NoticiaDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Data
 @Entity
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "NOTICIA")
 public class Noticia {
 
@@ -48,8 +52,8 @@ public class Noticia {
         return Noticia.builder()
                 .dataPublicacao(new Date(System.currentTimeMillis()))
                 .idDocumento(noticiaDTO.getIdDocumento())
-                .titulo(noticiaDTO.getTitle())
-                .conteudo(noticiaDTO.getContent())
+                .titulo(noticiaDTO.getTitulo())
+                .conteudo(noticiaDTO.getConteudo())
                 .idCategoria(noticiaDTO.getIdCategoria())
                 .build();
     }
